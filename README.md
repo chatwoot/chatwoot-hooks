@@ -1,5 +1,5 @@
 # Hooks
-Short description and motivation.
+Third party integrations to chatwoot
 
 ## Usage
 How to use my plugin.
