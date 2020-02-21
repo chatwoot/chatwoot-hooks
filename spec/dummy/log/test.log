@@ -1,0 +1,159 @@
+  [1m[35m (8.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (6.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (2.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  [1m[35m (102.4ms)[0m  [1m[35mDROP DATABASE IF EXISTS "chatwoot_test"[0m
+  [1m[35m (643.6ms)[0m  [1m[35mCREATE DATABASE "chatwoot_test" ENCODING = 'unicode'[0m
+  [1m[35mSQL (3.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "accounts" CASCADE[0m
+  [1m[35m (34.4ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" serial NOT NULL PRIMARY KEY, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments" CASCADE[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (38.7ms)[0m  [1m[35mCREATE  INDEX  "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments"  ("blob_id")[0m
+  [1m[35m (31.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_attachments_uniqueness" ON "active_storage_attachments"  ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs" CASCADE[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "byte_size" bigint NOT NULL, "checksum" character varying NOT NULL, "created_at" timestamp NOT NULL)[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_active_storage_blobs_on_key" ON "active_storage_blobs"  ("key")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "attachments" CASCADE[0m
+  [1m[35m (11.5ms)[0m  [1m[35mCREATE TABLE "attachments" ("id" serial NOT NULL PRIMARY KEY, "file_type" integer DEFAULT 0, "external_url" character varying, "coordinates_lat" float DEFAULT 0.0, "coordinates_long" float DEFAULT 0.0, "message_id" integer NOT NULL, "account_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "fallback_title" character varying, "extension" character varying)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "canned_responses" CASCADE[0m
+  [1m[35m (6.5ms)[0m  [1m[35mCREATE TABLE "canned_responses" ("id" serial NOT NULL PRIMARY KEY, "account_id" integer NOT NULL, "short_code" character varying, "content" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "channel_facebook_pages" CASCADE[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "channel_facebook_pages" ("id" serial NOT NULL PRIMARY KEY, "name" character varying NOT NULL, "page_id" character varying NOT NULL, "user_access_token" character varying NOT NULL, "page_access_token" character varying NOT NULL, "account_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_channel_facebook_pages_on_page_id_and_account_id" ON "channel_facebook_pages"  ("page_id", "account_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_channel_facebook_pages_on_page_id" ON "channel_facebook_pages"  ("page_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "channel_twitter_profiles" CASCADE[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "channel_twitter_profiles" ("id" bigserial primary key, "name" character varying, "profile_id" character varying NOT NULL, "twitter_access_token" character varying NOT NULL, "twitter_access_token_secret" character varying NOT NULL, "account_id" integer NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "channel_web_widgets" CASCADE[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "channel_web_widgets" ("id" serial NOT NULL PRIMARY KEY, "website_name" character varying, "website_url" character varying, "account_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "website_token" character varying, "widget_color" character varying DEFAULT '#1f93ff')[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_channel_web_widgets_on_website_token" ON "channel_web_widgets"  ("website_token")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "contact_inboxes" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "contact_inboxes" ("id" bigserial primary key, "contact_id" bigint, "inbox_id" bigint, "source_id" character varying NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_contact_inboxes_on_contact_id" ON "contact_inboxes"  ("contact_id")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_contact_inboxes_on_inbox_id_and_source_id" ON "contact_inboxes"  ("inbox_id", "source_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_contact_inboxes_on_inbox_id" ON "contact_inboxes"  ("inbox_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_contact_inboxes_on_source_id" ON "contact_inboxes"  ("source_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "contacts" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "contacts" ("id" serial NOT NULL PRIMARY KEY, "name" character varying, "email" character varying, "phone_number" character varying, "account_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "pubsub_token" character varying, "additional_attributes" jsonb)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_contacts_on_account_id" ON "contacts"  ("account_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_contacts_on_pubsub_token" ON "contacts"  ("pubsub_token")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "conversations" CASCADE[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE TABLE "conversations" ("id" serial NOT NULL PRIMARY KEY, "account_id" integer NOT NULL, "inbox_id" integer NOT NULL, "status" integer DEFAULT 0 NOT NULL, "assignee_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "contact_id" bigint, "display_id" integer NOT NULL, "user_last_seen_at" timestamp, "agent_last_seen_at" timestamp, "locked" boolean DEFAULT FALSE, "additional_attributes" jsonb, "contact_inbox_id" bigint)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_conversations_on_account_id_and_display_id" ON "conversations"  ("account_id", "display_id")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_conversations_on_account_id" ON "conversations"  ("account_id")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE  INDEX  "index_conversations_on_contact_inbox_id" ON "conversations"  ("contact_inbox_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "hooks_inbox_apps" CASCADE[0m
+  [1m[35m (8.2ms)[0m  [1m[35mCREATE TABLE "hooks_inbox_apps" ("id" bigserial primary key, "inbox_id" integer, "agent_id" integer, "account_id" integer, "app_slug" character varying, "status" character varying, "settings" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "inbox_members" CASCADE[0m
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE TABLE "inbox_members" ("id" serial NOT NULL PRIMARY KEY, "user_id" integer NOT NULL, "inbox_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_inbox_members_on_inbox_id" ON "inbox_members"  ("inbox_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "inboxes" CASCADE[0m
+  [1m[35m (6.0ms)[0m  [1m[35mCREATE TABLE "inboxes" ("id" serial NOT NULL PRIMARY KEY, "channel_id" integer NOT NULL, "account_id" integer NOT NULL, "name" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "channel_type" character varying)[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE  INDEX  "index_inboxes_on_account_id" ON "inboxes"  ("account_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "messages" CASCADE[0m
+  [1m[35m (6.6ms)[0m  [1m[35mCREATE TABLE "messages" ("id" serial NOT NULL PRIMARY KEY, "content" text, "account_id" integer NOT NULL, "inbox_id" integer NOT NULL, "conversation_id" integer NOT NULL, "message_type" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "private" boolean DEFAULT FALSE, "user_id" integer, "status" integer DEFAULT 0, "source_id" character varying, "content_type" integer DEFAULT 0, "content_attributes" json DEFAULT '{}', "contact_id" bigint)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_messages_on_contact_id" ON "messages"  ("contact_id")[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE  INDEX  "index_messages_on_conversation_id" ON "messages"  ("conversation_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_messages_on_source_id" ON "messages"  ("source_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "subscriptions" CASCADE[0m
+  [1m[35m (5.7ms)[0m  [1m[35mCREATE TABLE "subscriptions" ("id" serial NOT NULL PRIMARY KEY, "pricing_version" character varying, "account_id" integer, "expiry" timestamp, "billing_plan" character varying DEFAULT 'trial', "stripe_customer_id" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "state" integer DEFAULT 0, "payment_source_added" boolean DEFAULT FALSE)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "taggings" CASCADE[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "taggings" ("id" serial NOT NULL PRIMARY KEY, "tag_id" integer, "taggable_type" character varying, "taggable_id" integer, "tagger_type" character varying, "tagger_id" integer, "context" character varying(128), "created_at" timestamp)[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_context" ON "taggings"  ("context")[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "taggings_idx" ON "taggings"  ("tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_tag_id" ON "taggings"  ("tag_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_id_and_taggable_type_and_context" ON "taggings"  ("taggable_id", "taggable_type", "context")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "taggings_idy" ON "taggings"  ("taggable_id", "taggable_type", "tagger_id", "context")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_id" ON "taggings"  ("taggable_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_type_and_taggable_id" ON "taggings"  ("taggable_type", "taggable_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_taggable_type" ON "taggings"  ("taggable_type")[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_tagger_id_and_tagger_type" ON "taggings"  ("tagger_id", "tagger_type")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_tagger_id" ON "taggings"  ("tagger_id")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE  INDEX  "index_taggings_on_tagger_type_and_tagger_id" ON "taggings"  ("tagger_type", "tagger_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "tags" CASCADE[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "tags" ("id" serial NOT NULL PRIMARY KEY, "name" character varying, "taggings_count" integer DEFAULT 0)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_tags_on_name" ON "tags"  ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "telegram_bots" CASCADE[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE TABLE "telegram_bots" ("id" serial NOT NULL PRIMARY KEY, "name" character varying, "auth_key" character varying, "account_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  [1m[35m (9.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial NOT NULL PRIMARY KEY, "provider" character varying DEFAULT 'email' NOT NULL, "uid" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" character varying, "last_sign_in_ip" character varying, "confirmation_token" character varying, "confirmed_at" timestamp, "confirmation_sent_at" timestamp, "unconfirmed_email" character varying, "name" character varying NOT NULL, "nickname" character varying, "email" character varying, "tokens" json, "account_id" integer NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "pubsub_token" character varying, "role" integer DEFAULT 0, "inviter_id" bigint)[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE  INDEX  "index_users_on_inviter_id" ON "users"  ("inviter_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_pubsub_token" ON "users"  ("pubsub_token")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_uid_and_provider" ON "users"  ("uid", "provider")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "webhooks" CASCADE[0m
+  [1m[35m (5.8ms)[0m  [1m[35mCREATE TABLE "webhooks" ("id" bigserial primary key, "account_id" integer, "inbox_id" integer, "urls" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (23.3ms)[0m  [1m[35mALTER TABLE "active_storage_attachments" ADD CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+[0m
+  [1m[35m (16.5ms)[0m  [1m[35mALTER TABLE "contact_inboxes" ADD CONSTRAINT "fk_rails_ed53a99b1b"
+FOREIGN KEY ("contact_id")
+  REFERENCES "contacts" ("id")
+[0m
+  [1m[35m (4.6ms)[0m  [1m[35mALTER TABLE "contact_inboxes" ADD CONSTRAINT "fk_rails_259aaf0cab"
+FOREIGN KEY ("inbox_id")
+  REFERENCES "inboxes" ("id")
+[0m
+  [1m[35m (5.8ms)[0m  [1m[35mALTER TABLE "conversations" ADD CONSTRAINT "fk_rails_6122a36070"
+FOREIGN KEY ("contact_inbox_id")
+  REFERENCES "contact_inboxes" ("id")
+[0m
+  [1m[35m (5.8ms)[0m  [1m[35mALTER TABLE "messages" ADD CONSTRAINT "fk_rails_7e8ca78ca8"
+FOREIGN KEY ("contact_id")
+  REFERENCES "contacts" ("id")
+[0m
+  [1m[35m (8.4ms)[0m  [1m[35mALTER TABLE "users" ADD CONSTRAINT "fk_rails_3e95061862"
+FOREIGN KEY ("inviter_id")
+  REFERENCES "users" ("id")
+ ON DELETE SET NULL[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20200221121423)[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "test"], ["created_at", "2020-02-21 12:58:34.162524"], ["updated_at", "2020-02-21 12:58:34.162524"]]
+  [1m[35m (3.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "schema_sha1"], ["value", "5a2ec156b8c229067d30222ccb497a61b79a44fb"], ["created_at", "2020-02-21 12:58:34.172976"], ["updated_at", "2020-02-21 12:58:34.172976"]]
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (5.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (4.9ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (5.6ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "schema_sha1"]]
+  [1m[35m (7.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
