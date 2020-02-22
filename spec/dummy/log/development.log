@@ -1,0 +1,17 @@
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE DATABASE "chatwoot_dev" ENCODING = 'unicode'[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE DATABASE "chatwoot_test" ENCODING = 'unicode'[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(504336575570112495)[0m
+  [1m[35m (7.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateHooksInboxApps (20200221121423)
+  [1m[35m (1.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (79.8ms)[0m  [1m[35mCREATE TABLE "hooks_inbox_apps" ("id" bigserial primary key, "inbox_id" integer, "agent_id" integer, "account_id" integer, "app_slug" character varying, "status" character varying, "settings" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mprimary::SchemaMigration Create (4.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20200221121423"]]
+  [1m[35m (3.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (6.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(504336575570112495)[0m
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mHooks::InboxApp Create (9.6ms)[0m  [1m[32mINSERT INTO "hooks_inbox_apps" ("created_at", "updated_at") VALUES ($1, $2) RETURNING "id"[0m  [["created_at", "2020-02-21 12:24:12.674900"], ["updated_at", "2020-02-21 12:24:12.674900"]]
+  [1m[35m (4.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mHooks::InboxApp Load (2.4ms)[0m  [1m[34mSELECT "hooks_inbox_apps".* FROM "hooks_inbox_apps" ORDER BY "hooks_inbox_apps"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mHooks::InboxApp Load (3.6ms)[0m  [1m[34mSELECT "hooks_inbox_apps".* FROM "hooks_inbox_apps" ORDER BY "hooks_inbox_apps"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
