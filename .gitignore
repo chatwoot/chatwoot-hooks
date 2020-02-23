@@ -9,3 +9,9 @@ test/dummy/storage/
 test/dummy/tmp/
 /.DS_Store
 /spec/dummy/log/test.log
+/spec/dummy/tmp/pids/server.pid
+*.log
+/spec/dummy/log/development.log
+.DS_Store
+development.log
+.byebug_history
