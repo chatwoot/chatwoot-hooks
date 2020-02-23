@@ -3,7 +3,6 @@ slug: slack
 access: public
 
 description: "Slack integration"
-
 category: notification
 
 tags: 
@@ -14,5 +13,5 @@ tags:
 developer:
   name: Subin T P
   email: subin@thoughtwoot.com
-  twitter: "@pranav7"
-  github: 'pranav7'
+  twitter: "@ponnanikaaraN"
+  github: 'subintp'
